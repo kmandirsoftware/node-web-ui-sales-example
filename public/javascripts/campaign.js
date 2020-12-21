@@ -1,5 +1,14 @@
+var autoGroupColumnDef2 = {
+  headerName: 'Campaigns',
+  field: 'campaigns',
+  cellRenderer: 'agGroupCellRenderer',
+  cellRendererParams: {
+    checkbox: true
+  }
+}
+
 campaignGridOptions = {
-  autoGroupColumnDef: autoGroupColumnDef,
+  autoGroupColumnDef: autoGroupColumnDef2,
   //rowData: rowData
   rowSelection: 'multiple',
   groupSelectsChildren: true,
@@ -24,7 +33,7 @@ campaignGridOptions = {
 
 function getCampaignRow(agGrid){
   agGrid.simpleHttpRequest({
-    url: 'http://localhost:3000/Campaigns'
+    url: 'http://localhost:3000/CampaignsAPI'
   })
   .then(function (data) {
     campaignGridOptions.api.setRowData(data);
@@ -56,10 +65,8 @@ function getCampaignColumnHeader(agGrid){
   })
 }
 
-function setupCampainGrid(){
-	var gridCampaignDiv = document.querySelector('#CampaignGrid');
-    
-    new agGrid.Grid(gridCampaignDiv, campaignGridOptions);
+function setupCampainGrid(gridDiv){    
+    new agGrid.Grid(gridDiv, campaignGridOptions);
     getCampaignColumnHeader(agGrid);
     getCampaignRow(agGrid);
     campaignGridOptions.api.sizeColumnsToFit();

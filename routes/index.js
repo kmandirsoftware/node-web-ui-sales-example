@@ -8,12 +8,12 @@ router.get('/', function(req, res, next) {
   res.render('index', {page:'Home', menuId:'home'});
 });
 
-router.get('/about', function(req, res, next) {
-  res.render('about', {page:'About Us', menuId:'about'});
+router.get('/programs', function(req, res, next) {
+  res.render('grid', {page:'About Us', menuId:'about', gridid: 'programGrid'});
 });
 
-router.get('/contact', function(req, res, next) {
-  res.render('contact', {page:'Contact Us', menuId:'contact', gridid:'CampaignGrid'});
+router.get('/campaigns', function(req, res, next) {
+  res.render('grid', {page:'Contact Us', menuId:'contact', gridid:'campaignGrid'});
 });
 
 
@@ -87,7 +87,7 @@ router.get('/ProgramDetailsColumnNames', (req, res, next) => {
             callback(returnJson ? JSON.parse(data) : data);
         });
     };
-    router.get('/Campaigns', (req, res) => {
+    router.get('/CampaignsAPI', (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
                 throw err;
