@@ -28,8 +28,8 @@ const appRouter = (app, mysql, fs, checkAuthenticated, checkNotAuthenticated) =>
    });
 
    	// Handle Web Requests
-	programdetailRoutes(app, mysql, fs);
-	campaignRoutes(app, fs);
+	programdetailRoutes(app, mysql, fs, checkAuthenticated);
+	campaignRoutes(app, fs, checkAuthenticated);
 };
 
 module.exports = appRouter;

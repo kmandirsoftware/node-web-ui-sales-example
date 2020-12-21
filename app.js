@@ -31,7 +31,7 @@ app.use(methodOverride('_method'))
 
 
 // routes
-const routes = require('./routes/routes.js')(app, mysql, fs, checkAuthenticated, checkNotAuthenticated);
+const routes = require('./routes/routes.js')(app, mysql, fs, checkAuthenticated, checkNotAuthenticated,checkAuthenticated);
 const loginroutes = require('./routes/loginauth.js')(app,mysql,bcrypt,passport,flash,session,methodOverride, checkNotAuthenticated);
 
 // catch 404 and forward to error handler

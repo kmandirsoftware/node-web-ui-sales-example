@@ -1,4 +1,4 @@
-const programdetailRoutes = (app, mysql, fs) => {
+const programdetailRoutes = (app, mysql, fs, checkAuthenticated) => {
 
     const con = mysql.createConnection({
         host: 'ec2-13-59-108-198.us-east-2.compute.amazonaws.com',
@@ -13,7 +13,7 @@ const programdetailRoutes = (app, mysql, fs) => {
         console.log("Connected!");
     });
 
-	app.get('/ProgramDetailsColumnNames', (req, res) => {
+	app.get('/ProgramDetailsColumnNames', checkAuthenticated, (req, res) => {
         var myquery="show columns from ldmrk.programdetails";
         con.query(myquery, function(err,result){
             if(err){
@@ -35,7 +35,7 @@ const programdetailRoutes = (app, mysql, fs) => {
 
     // READ
     // http://localhost:3001/ProgrammeDetails?start=107&count=100&continue=true&filter[name]=&filter[shortName]=&filter[description]=&filter[programeType]=&filter[startDate]=&filter[endDate]=
-    app.get('/ProgramDetails', (req, res) => {
+    app.get('/ProgramDetails', checkAuthenticated, (req, res) => {
         if(req.query.hasOwnProperty('start')){
             console.log(req.query['start']);
             var selectallquery = "select * from programdetails limit 100 offset  "+req.query['start'] ;

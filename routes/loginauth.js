@@ -1,6 +1,5 @@
 
-
-const loginRouter = (app,mysql,bcrypt,passport,flash,session,methodOverride,checkNotAuthenticated) => {
+const loginRouter = (app,mysql,bcrypt,passport,flash,session,methodOverride,checkNotAuthenticated,checkAuthenticated) => {
 
 const users = [];
 
@@ -22,11 +21,15 @@ initializePassport(
   id => users.find(user => user.id === id)
 )
 
-app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-  failureFlash: true
-}))
+app.post('/login', checkNotAuthenticated, passport.authenticate(
+	'local', 
+	{
+  		successRedirect: '/',
+  		failureRedirect: '/login',
+  		failureFlash: true
+	},
+
+))
 
 };
 
