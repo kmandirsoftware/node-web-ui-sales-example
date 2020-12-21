@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <% include partials/head %> 
+ <%- include('partials/head'); %> 
 </head>
 <body>
-<% include partials/menu %>
+<%- include('partials/menu'); %>
 
 <div id="<%= gridid %>" class="ag-theme-alpine" style="height: 800px;"></div>
 
 </body>
-<% include partials/script %>
+<%- include('partials/script'); %>
 </html>

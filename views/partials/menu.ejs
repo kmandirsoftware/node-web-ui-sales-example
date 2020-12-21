@@ -38,7 +38,13 @@
                 <li class="nav-item"><a href="#" class="nav-link disabled" tabindex="-1">Reports</a></li>
             </ul>
             <div class="navbar-nav ml-auto">
-                <a href="#" class="nav-item nav-link">Login</a>
+                <%if (!name) { %>
+                    <a href="/login" class="nav-item nav-link">Login</a>
+                <% }else{ %>
+                    <form action="/logout?_method=DELETE" method="POST" style="max-width:300px;margin:auto;">
+                        <button type="submit" class="btn btn-lg btn-primary btn-block">Logout</button>
+                    </form>
+                <%}%>
             </div>
         </div>
     </nav>

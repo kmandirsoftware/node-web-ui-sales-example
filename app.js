@@ -3,7 +3,12 @@ var path = require('path');
 var logger = require('morgan');
 const fs = require('fs');
 const mysql = require("mysql");
-//var index = require('./routes/index');
+const bcrypt = require('bcrypt')
+const passport = require('passport')
+const flash = require('express-flash')
+const session = require('express-session')
+const methodOverride = require('method-override')
+
 var app = express();
 
 
@@ -13,11 +18,21 @@ app.set('view engine', 'ejs');
 
 // set path for static assets
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: false }))
+app.use(flash())
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(methodOverride('_method'))
 
 
 // routes
-//app.use('/', index);
-const routes = require('./routes/routes.js')(app, mysql, fs);
+const routes = require('./routes/routes.js')(app, mysql, fs, checkAuthenticated, checkNotAuthenticated);
+const loginroutes = require('./routes/loginauth.js')(app,mysql,bcrypt,passport,flash,session,methodOverride, checkNotAuthenticated);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -33,7 +48,20 @@ app.use(function(err, req, res, next) {
   res.render('error', {status:err.status, message:err.message});
 });
 
+function checkAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next()
+  }
 
+  res.redirect('/login')
+}
+
+function checkNotAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return res.redirect('/')
+  }
+  next()
+}
 
 const server = app.listen(3000, () => {
     console.log('listening on port %s...', server.address().port);
