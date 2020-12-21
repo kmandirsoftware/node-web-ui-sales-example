@@ -1,7 +1,9 @@
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
-var index = require('./routes/index');
+const fs = require('fs');
+const mysql = require("mysql");
+//var index = require('./routes/index');
 var app = express();
 
 
@@ -14,7 +16,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // routes
-app.use('/', index);
+//app.use('/', index);
+const routes = require('./routes/routes.js')(app, mysql, fs);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -30,4 +33,8 @@ app.use(function(err, req, res, next) {
   res.render('error', {status:err.status, message:err.message});
 });
 
-module.exports = app;
+
+
+const server = app.listen(3000, () => {
+    console.log('listening on port %s...', server.address().port);
+});
