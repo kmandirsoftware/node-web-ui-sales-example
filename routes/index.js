@@ -9,11 +9,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/programs', function(req, res, next) {
-  res.render('grid', {page:'About Us', menuId:'about', gridid: 'programGrid'});
+  res.render('grid', {page:'Programs', menuId:'about', gridid: 'programGrid'});
 });
 
 router.get('/campaigns', function(req, res, next) {
-  res.render('grid', {page:'Contact Us', menuId:'contact', gridid:'campaignGrid'});
+  res.render('grid', {page:'Campaigns', menuId:'contact', gridid:'campaignGrid'});
 });
 
 
