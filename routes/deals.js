@@ -1,7 +1,7 @@
-const campaignRoutes = (app, fs, checkAuthenticated) => {
+const dealsRoutes = (app, fs, checkAuthenticated) => {
 
-    const dataPath = './data/campaign.json';
-    const columns = './data/campaigncolumndefs.json';
+    const dataPath = './data/deals.json';
+    const columns = './data/dealscolumndefs.json';
 
     const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
         fs.readFile(filePath, encoding, (err, data) => {
@@ -12,7 +12,7 @@ const campaignRoutes = (app, fs, checkAuthenticated) => {
             callback(returnJson ? JSON.parse(data) : data);
         });
     };
-    app.get('/CampaignsAPI', checkAuthenticated, (req, res) => {
+    app.get('/DealsAPI', checkAuthenticated, (req, res) => {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
                 throw err;
@@ -21,7 +21,7 @@ const campaignRoutes = (app, fs, checkAuthenticated) => {
             res.send(JSON.parse(data));
         });
     });
-    app.get('/CampaignsColumnNames', checkAuthenticated,  (req, res) => {
+    app.get('/DealsColumnNames', checkAuthenticated,  (req, res) => {
         fs.readFile(columns, 'utf8', (err, data) => {
             if (err) {
                 throw err;
@@ -33,4 +33,4 @@ const campaignRoutes = (app, fs, checkAuthenticated) => {
 
 };
 
-module.exports = campaignRoutes;
+module.exports = dealsRoutes;

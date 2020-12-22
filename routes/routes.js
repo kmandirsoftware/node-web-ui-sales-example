@@ -1,5 +1,6 @@
 const programdetailRoutes = require('./programdetail')
 const campaignRoutes = require('./campaign')
+const dealsRoutes = require('./deals')
 
 const appRouter = (app, mysql, fs, checkAuthenticated, checkNotAuthenticated) => {
 
@@ -20,16 +21,21 @@ const appRouter = (app, mysql, fs, checkAuthenticated, checkNotAuthenticated) =>
 
    // Handle web pages
    app.get('/programs',checkAuthenticated, function(req, res, next) {
-     res.render('grid', {page:'Programs', menuId:'about', gridid: 'programGrid', name: req.user.name});
+     res.render('grid', {page:'Programs', menuId:'programs', gridname: 'programGrid', name: req.user.name});
    });   
 
    app.get('/campaigns',checkAuthenticated, function(req, res, next) {
-     res.render('grid', {page:'Campaigns', menuId:'contact', gridid:'campaignGrid', name: req.user.name});
+     res.render('grid', {page:'Campaigns', menuId:'campaigns', gridname:'campaignGrid', name: req.user.name});
+   });
+
+   app.get('/deals',checkAuthenticated, function(req, res, next) {
+     res.render('grid', {page:'Deals', menuId:'deals', gridname:'dealsGrid', name: req.user.name});
    });
 
    	// Handle Web Requests
 	programdetailRoutes(app, mysql, fs, checkAuthenticated);
 	campaignRoutes(app, fs, checkAuthenticated);
+	dealsRoutes(app, fs, checkAuthenticated);
 };
 
 module.exports = appRouter;
